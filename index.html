@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Control de Inventario - Bodega Restaurante</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 font-sans antialiased">
+
+  <div class="flex h-screen overflow-hidden">
+
+    <!-- SIDEBAR -->
+    <aside class="w-64 bg-slate-950 border-r border-slate-800 flex flex-col justify-between shrink-0">
+      <div>
+        <!-- Logo -->
+        <div class="h-16 flex items-center px-6 gap-3 border-b border-slate-800">
+          <div class="p-2 bg-amber-500 text-slate-950 rounded-lg">
+            <i data-lucide="utensils-crossed" class="w-5 h-5"></i>
+          </div>
+          <span class="font-bold text-lg text-white tracking-wide">StockGourmet</span>
+        </div>
+
+        <!-- Menú de Navegación -->
+        <nav class="p-4 space-y-1">
+          <a href="#" class="flex items-center gap-3 px-3 py-2.5 bg-amber-500/10 text-amber-400 font-medium rounded-lg border border-amber-500/20">
+            <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+            Dashboard
+          </a>
+          <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:text-slate-100 hover:bg-slate-800/60 rounded-lg transition-colors">
+            <i data-lucide="boxes" class="w-5 h-5"></i>
+            Catálogo de Insumos
+          </a>
+          <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:text-slate-100 hover:bg-slate-800/60 rounded-lg transition-colors">
+            <i data-lucide="arrow-up-down" class="w-5 h-5"></i>
+            Movimientos
+          </a>
+          <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:text-slate-100 hover:bg-slate-800/60 rounded-lg transition-colors">
+            <i data-lucide="truck" class="w-5 h-5"></i>
+            Proveedores
+          </a>
+          <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:text-slate-100 hover:bg-slate-800/60 rounded-lg transition-colors">
+            <i data-lucide="trash-2" class="w-5 h-5"></i>
+            Mermas / Bajas
+          </a>
+          <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:text-slate-100 hover:bg-slate-800/60 rounded-lg transition-colors">
+            <i data-lucide="bar-chart-3" class="w-5 h-5"></i>
+            Reportes
+          </a>
+        </nav>
+      </div>
+
+      <!-- Footer Sidebar -->
+      <div class="p-4 border-t border-slate-800 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full bg-slate-700 flex items-center justify-center font-bold text-amber-400">
+            AP
+          </div>
+          <div>
+            <p class="text-sm font-medium text-white">Alexander P.</p>
+            <p class="text-xs text-slate-400">Jefe de Bodega</p>
+          </div>
+        </div>
+        <button class="text-slate-400 hover:text-rose-400 transition-colors">
+          <i data-lucide="log-out" class="w-5 h-5"></i>
+        </button>
+      </div>
+    </aside>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+
+      <!-- HEADER SUPERIOR -->
+      <header class="h-16 bg-slate-950 border-b border-slate-800 px-6 flex items-center justify-between gap-4 shrink-0">
+        <!-- Buscador Global -->
+        <div class="relative w-96">
+          <i data-lucide="search" class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
+          <input type="text" placeholder="Buscar insumo, categoría, lote o código..." 
+            class="w-full bg-slate-900 border border-slate-800 rounded-lg pl-9 pr-4 py-2 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-colors">
+        </div>
+
+        <!-- Notificaciones y Ajustes -->
+        <div class="flex items-center gap-3">
+          <button class="relative p-2 text-slate-400 hover:text-white bg-slate-900 border border-slate-800 rounded-lg hover:border-slate-700 transition-colors">
+            <i data-lucide="bell" class="w-5 h-5"></i>
+            <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-rose-500 rounded-full animate-pulse"></span>
+          </button>
+        </div>
+      </header>
+
+      <!-- ÁREA DE DASHBOARD / SCROLL -->
+      <main class="flex-1 overflow-y-auto p-6 space-y-6">
+
+        <!-- ENCABEZADO Y BOTONES DE ACCIÓN RÁPIDA -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <h1 class="text-2xl font-bold text-white">Panel de Control de Bodega</h1>
+            <p class="text-sm text-slate-400">Resumen operativo e inventario crítico en tiempo real</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <button class="flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-semibold px-4 py-2 rounded-lg transition-colors">
+              <i data-lucide="plus-circle" class="w-4 h-4"></i>
+              Entrada
+            </button>
+            <button class="flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-white font-medium px-4 py-2 rounded-lg border border-slate-700 transition-colors">
+              <i data-lucide="minus-circle" class="w-4 h-4"></i>
+              Salida / Requisición
+            </button>
+          </div>
+        </div>
+
+        <!-- TARJETAS DE KPIS -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <!-- KPI 1 -->
+          <div class="bg-slate-950 p-5 rounded-xl border border-slate-800">
+            <div class="flex justify-between items-start">
+              <div>
+                <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Valor del Inventario</p>
+                <h3 class="text-2xl font-extrabold text-white mt-1">$14,280.50</h3>
+              </div>
+              <div class="p-2.5 bg-emerald-500/10 text-emerald-400 rounded-lg border border-emerald-500/20">
+                <i data-lucide="dollar-sign" class="w-5 h-5"></i>
+              </div>
+            </div>
+            <p class="text-xs text-slate-400 mt-3"><span class="text-emerald-400 font-semibold">+3.2%</span> respecto a la semana pasada</p>
+          </div>
+
+          <!-- KPI 2 -->
+          <div class="bg-slate-950 p-5 rounded-xl border border-slate-800">
+            <div class="flex justify-between items-start">
+              <div>
+                <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Stock Crítico</p>
+                <h3 class="text-2xl font-extrabold text-rose-400 mt-1">8 Insumos</h3>
+              </div>
+              <div class="p-2.5 bg-rose-500/10 text-rose-400 rounded-lg border border-rose-500/20">
+                <i data-lucide="alert-triangle" class="w-5 h-5"></i>
+              </div>
+            </div>
+            <p class="text-xs text-slate-400 mt-3">Por debajo del punto de reorden</p>
+          </div>
+
+          <!-- KPI 3 -->
+          <div class="bg-slate-950 p-5 rounded-xl border border-slate-800">
+            <div class="flex justify-between items-start">
+              <div>
+                <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Por Vencer (&lt; 7 Días)</p>
+                <h3 class="text-2xl font-extrabold text-amber-400 mt-1">12 Lotes</h3>
+              </div>
+              <div class="p-2.5 bg-amber-500/10 text-amber-400 rounded-lg border border-amber-500/20">
+                <i data-lucide="clock" class="w-5 h-5"></i>
+              </div>
+            </div>
+            <p class="text-xs text-slate-400 mt-3">Regla FIFO activa para cocina</p>
+          </div>
+
+          <!-- KPI 4 -->
+          <div class="bg-slate-950 p-5 rounded-xl border border-slate-800">
+            <div class="flex justify-between items-start">
+              <div>
+                <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Movimientos Hoy</p>
+                <h3 class="text-2xl font-extrabold text-white mt-1">45 Registros</h3>
+              </div>
+              <div class="p-2.5 bg-blue-500/10 text-blue-400 rounded-lg border border-blue-500/20">
+                <i data-lucide="arrow-left-right" class="w-5 h-5"></i>
+              </div>
+            </div>
+            <p class="text-xs text-slate-400 mt-3">32 salidas a cocina / 13 entradas</p>
+          </div>
+        </div>
+
+        <!-- TABLA: INSUMOS DE ATENCIÓN INMEDIATA -->
+        <div class="bg-slate-950 rounded-xl border border-slate-800 overflow-hidden">
+          <div class="p-5 border-b border-slate-800 flex items-center justify-between">
+            <div>
+              <h2 class="text-lg font-bold text-white">Insumos de Atención Inmediata</h2>
+              <p class="text-sm text-slate-400">Insumos con reorden urgente o vencimiento próximo</p>
+            </div>
+            <button class="text-sm font-semibold text-amber-400 hover:text-amber-300 transition-colors">
+              Ver todo el inventario &rarr;
+            </button>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm text-slate-300">
+              <thead class="bg-slate-900/60 text-slate-400 text-xs uppercase tracking-wider border-b border-slate-800">
+                <tr>
+                  <th class="px-6 py-3.5">Estado</th>
+                  <th class="px-6 py-3.5">Insumo</th>
+                  <th class="px-6 py-3.5">Categoría</th>
+                  <th class="px-6 py-3.5">Stock Actual</th>
+                  <th class="px-6 py-3.5">Mínimo</th>
+                  <th class="px-6 py-3.5">Días p/ Vencer</th>
+                  <th class="px-6 py-3.5 text-right">Acción</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-800/60">
+                <!-- Fila 1 -->
+                <tr class="hover:bg-slate-900/40 transition-colors">
+                  <td class="px-6 py-4">
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-rose-500/10 text-rose-400 border border-rose-500/20">
+                      <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span> Stock Crítico
+                    </span>
+                  </td>
+                  <td class="px-6 py-4 font-semibold text-white">Lomo de Aguja Premium</td>
+                  <td class="px-6 py-4 text-slate-400">Carnes</td>
+                  <td class="px-6 py-4 font-mono font-semibold text-rose-400">3.50 kg</td>
+                  <td class="px-6 py-4 font-mono text-slate-400">10.00 kg</td>
+                  <td class="px-6 py-4">4 días</td>
+                  <td class="px-6 py-4 text-right">
+                    <button class="bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/30 px-3 py-1.5 rounded-md font-medium text-xs transition-colors">
+                      Ordenar
+                    </button>
+                  </td>
+                </tr>
+
+                <!-- Fila 2 -->
+                <tr class="hover:bg-slate-900/40 transition-colors">
+                  <td class="px-6 py-4">
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                      <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span> Por Vencer
+                    </span>
+                  </td>
+                  <td class="px-6 py-4 font-semibold text-white">Leche Entera 1L</td>
+                  <td class="px-6 py-4 text-slate-400">Lácteos</td>
+                  <td class="px-6 py-4 font-mono text-slate-200">12.00 L</td>
+                  <td class="px-6 py-4 font-mono text-slate-400">15.00 L</td>
+                  <td class="px-6 py-4 text-amber-400 font-semibold">2 días</td>
+                  <td class="px-6 py-4 text-right">
+                    <button class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-md font-medium text-xs transition-colors">
+                      Priorizar
+                    </button>
+                  </td>
+                </tr>
+
+                <!-- Fila 3 -->
+                <tr class="hover:bg-slate-900/40 transition-colors">
+                  <td class="px-6 py-4">
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-rose-500/10 text-rose-400 border border-rose-500/20">
+                      <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span> Agotado
+                    </span>
+                  </td>
+                  <td class="px-6 py-4 font-semibold text-white">Queso Mozzarella</td>
+                  <td class="px-6 py-4 text-slate-400">Lácteos</td>
+                  <td class="px-6 py-4 font-mono font-semibold text-rose-400">0.00 kg</td>
+                  <td class="px-6 py-4 font-mono text-slate-400">5.00 kg</td>
+                  <td class="px-6 py-4 text-slate-500">N/A</td>
+                  <td class="px-6 py-4 text-right">
+                    <button class="bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/30 px-3 py-1.5 rounded-md font-medium text-xs transition-colors">
+                      Ordenar
+                    </button>
+                  </td>
+                </tr>
+
+                <!-- Fila 4 -->
+                <tr class="hover:bg-slate-900/40 transition-colors">
+                  <td class="px-6 py-4">
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                      <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Normal
+                    </span>
+                  </td>
+                  <td class="px-6 py-4 font-semibold text-white">Aceite Vegetal 5L</td>
+                  <td class="px-6 py-4 text-slate-400">Abarrotes</td>
+                  <td class="px-6 py-4 font-mono text-slate-200">45.00 L</td>
+                  <td class="px-6 py-4 font-mono text-slate-400">20.00 L</td>
+                  <td class="px-6 py-4">85 días</td>
+                  <td class="px-6 py-4 text-right">
+                    <button class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-md font-medium text-xs transition-colors">
+                      Ver Lotes
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Inicializar Lucide Icons -->
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>
